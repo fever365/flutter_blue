@@ -16,9 +16,10 @@ class FlutterBlue {
   FlutterBlue._() {
     _channel.setMethodCallHandler((MethodCall call) async {
       _methodStreamController.add(call);
+      return;
     });
 
-    _setLogLevelIfAvailable();
+    //_setLogLevelIfAvailable();
   }
 
   static FlutterBlue _instance = new FlutterBlue._();
@@ -73,7 +74,7 @@ class FlutterBlue {
         .then((p) => p.map((d) => BluetoothDevice.fromProto(d)).toList());
   }
 
-  _setLogLevelIfAvailable() async {
+  setLogLevelIfAvailable() async {
     if (await isAvailable) {
       // Send the log level to the underlying platforms.
       setLogLevel(logLevel);
